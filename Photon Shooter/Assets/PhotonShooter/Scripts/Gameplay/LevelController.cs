@@ -24,7 +24,8 @@ namespace PhotonShooter.Scripts.Gameplay
         public const byte PickupWeaponCode = 0x01;
         public const byte PickupHealthPackCode = 0x02;
         public const byte PickupAmmoPackCode = 0x03;
-        public const byte MatchOverCode = 0x04;
+        public const byte AddKillCode = 0x05;
+        public const byte MatchOverCode = 0x06;
         
         private static RaiseEventOptions raiseEventOptions = new RaiseEventOptions
         {
@@ -106,7 +107,7 @@ namespace PhotonShooter.Scripts.Gameplay
                 projectile.WeaponConfig.damage
             };
             
-            PhotonNetwork.RaiseEvent(NetworkEvents.DealDamageCode, content, raiseEventOptions, sendOptions);
+            PhotonNetwork.RaiseEvent(DealDamageCode, content, raiseEventOptions, sendOptions);
         }
         
         public void ItemSpawnerCollision(ItemSpawner itemSpawner, Character character)
@@ -123,7 +124,7 @@ namespace PhotonShooter.Scripts.Gameplay
                         character.photonView.ViewID,
                         weaponConfig.id
                     };
-                    PhotonNetwork.RaiseEvent(NetworkEvents.PickupWeaponCode, wcontent, raiseEventOptions, sendOptions);
+                    PhotonNetwork.RaiseEvent(PickupWeaponCode, wcontent, raiseEventOptions, sendOptions);
                     break;
                 case HealthPackConfig healthPackConfig:
                     var hcontent = new int[]
@@ -131,7 +132,7 @@ namespace PhotonShooter.Scripts.Gameplay
                         character.photonView.ViewID,
                         healthPackConfig.id
                     };
-                    PhotonNetwork.RaiseEvent(NetworkEvents.PickupHealthPackCode, hcontent, raiseEventOptions, sendOptions);
+                    PhotonNetwork.RaiseEvent(PickupHealthPackCode, hcontent, raiseEventOptions, sendOptions);
                     break;
                 case AmmoPackConfig ammoPackConfig:
                     var acontent = new int[]
@@ -139,7 +140,7 @@ namespace PhotonShooter.Scripts.Gameplay
                         character.photonView.ViewID,
                         ammoPackConfig.id
                     };
-                    PhotonNetwork.RaiseEvent(NetworkEvents.PickupAmmoPackCode, acontent, raiseEventOptions, sendOptions);
+                    PhotonNetwork.RaiseEvent(PickupAmmoPackCode, acontent, raiseEventOptions, sendOptions);
                     break;
             }
         }
@@ -148,32 +149,36 @@ namespace PhotonShooter.Scripts.Gameplay
         {
             switch (photonEvent.Code)
             {
-                case NetworkEvents.DealDamageCode:
+                case DealDamageCode:
                     var dcontent = (int[])photonEvent.CustomData;
                     DealDamageToCharacter(
                         characters.First(c => c.photonView.ViewID == dcontent[1]),
                         characters.First(c => c.photonView.ViewID == dcontent[0]),
                         dcontent[2]);
                     break;
-                case NetworkEvents.PickupWeaponCode:
+                case PickupWeaponCode:
                     var wcontent = (int[])photonEvent.CustomData;
                     CharacterPickupWeapon(
                         characters.First(c => c.photonView.ViewID == wcontent[0]),
                         itemList.GetItem<WeaponConfig>(wcontent[1]));
                     break;
-                case NetworkEvents.PickupHealthPackCode:
+                case PickupHealthPackCode:
                     var hcontent = (int[]) photonEvent.CustomData;
                     CharacterPickupHealthpack(
                         characters.First(c => c.photonView.ViewID == hcontent[0]),
                         itemList.GetItem<HealthPackConfig>(hcontent[1]));
                     break;
-                case NetworkEvents.PickupAmmoPackCode:
+                case PickupAmmoPackCode:
                     var acontent = (int[])photonEvent.CustomData;
                     CharacterPickupAmmopack(
                         characters.First(c => c.photonView.ViewID == acontent[0]),
                         itemList.GetItem<AmmoPackConfig>(acontent[1]));
                     break;
-                case NetworkEvents.MatchOverCode:
+                case AddKillCode:
+                    var kcontent = (int[])photonEvent.CustomData;
+                    CharacterAddKill(characters.First(c => c.photonView.ViewID == kcontent[0]));
+                    break;
+                case MatchOverCode:
                     var ocontent = (int[])photonEvent.CustomData;
                     MatchOver(ocontent[0]);
                     break;
@@ -188,17 +193,13 @@ namespace PhotonShooter.Scripts.Gameplay
             if (character.CharacterModel.Dead)
             {
                 character.CharacterModel.Deaths.Value += 1;
-                attacker.CharacterModel.Kills.Value += 1;
                 RespawnCharacter(character);
-            }
-
-            if (attacker.CharacterModel.Kills.Value >= MaxKills)
-            {
+                
                 var content = new int[]
                 {
                     attacker.photonView.ViewID
                 };
-                PhotonNetwork.RaiseEvent(NetworkEvents.MatchOverCode, content, raiseEventOptions, sendOptions);
+                PhotonNetwork.RaiseEvent(AddKillCode, content, raiseEventOptions, sendOptions);
             }
         }
         
@@ -218,6 +219,21 @@ namespace PhotonShooter.Scripts.Gameplay
         {
             if (!character.photonView.IsMine) return;
             character.CharacterModel.PickupAmmoPack(ammoPackConfig);
+        }
+
+        private void CharacterAddKill(Character character)
+        {
+            if (!character.photonView.IsMine) return;
+            character.CharacterModel.Kills.Value += 1;
+            
+            if (character.CharacterModel.Kills.Value >= MaxKills)
+            {
+                var content = new int[]
+                {
+                    character.photonView.ViewID
+                };
+                PhotonNetwork.RaiseEvent(MatchOverCode, content, raiseEventOptions, sendOptions);
+            }
         }
 
         private void MatchOver(int winnerId)

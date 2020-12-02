@@ -17,12 +17,12 @@ namespace PhotonShooter.Scripts.Gameplay
 
         [Inject] private LevelController levelController;
         
-        private List<Transform> characterSpawns;
+        private List<CharacterSpawn> characterSpawns;
         
         
         private void Start()
         {
-            characterSpawns = GetComponentsInChildren<CharacterSpawn>().Select(ps => ps.transform).ToList();
+            characterSpawns = GetComponentsInChildren<CharacterSpawn>().ToList();
             levelController.Initialize();
         }
 
@@ -44,7 +44,7 @@ namespace PhotonShooter.Scripts.Gameplay
         private Transform RandomSpawnPosition()
         {
             var index = Random.Range(0, characterSpawns.Count);
-            return characterSpawns[index];
+            return characterSpawns[index].Point;
         }
 
         public void CreateProjectile(Transform launchTransform, GameObject prefab, Character character, WeaponConfig weaponConfig)
