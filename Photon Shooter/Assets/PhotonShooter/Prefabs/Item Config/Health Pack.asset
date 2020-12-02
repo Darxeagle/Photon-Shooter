@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d5e45a1b544f8da92ff42d31d20902, type: 3}
+  m_Name: Health Pack
+  m_EditorClassIdentifier: Assembly-CSharp:PhotonShooter.Scripts.Gameplay:HealthPackConfig
+  id: 0
+  viewPrefab: {fileID: 5163188138065812597, guid: d0e5f7c425c00204c9253c7c885f00aa,
+    type: 3}
+  respawnTime: 15
+  health: 50

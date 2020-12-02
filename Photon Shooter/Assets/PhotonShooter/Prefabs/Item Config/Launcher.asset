@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639582edae264b58a3c709d9eaaf1033, type: 3}
+  m_Name: Launcher
+  m_EditorClassIdentifier: Assembly-CSharp:PhotonShooter.Scripts.Gameplay:WeaponConfig
+  id: 2
+  viewPrefab: {fileID: 2233809903926327035, guid: eac0f3bd2c5aac14d8e1bfb4688e0ca1,
+    type: 3}
+  respawnTime: 40
+  projectilePrefab: {fileID: 3751723837947193395, guid: ed87f7ea5a2d83148819fe21be40ec9f,
+    type: 3}
+  hitProjectilePrefab: {fileID: 1232590946683603492, guid: a7953faaf72dac846b919eb52d0c4556,
+    type: 3}
+  damage: 25
+  shootInterval: 0.8
+  maxAmmo: 64
+  projectileSpeed: 18
+  panelColor: {r: 0.745283, g: 0, b: 0, a: 0}

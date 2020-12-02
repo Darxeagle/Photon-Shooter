@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639582edae264b58a3c709d9eaaf1033, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: Assembly-CSharp:PhotonShooter.Scripts.Gameplay:WeaponConfig
+  id: 1
+  viewPrefab: {fileID: 2761519915262119577, guid: 07e2e94423e540b44af5d67d13cb7549,
+    type: 3}
+  respawnTime: 20
+  projectilePrefab: {fileID: 747583691706136896, guid: 14d0a36c0e992cb4f81d7bd4d66dbece,
+    type: 3}
+  hitProjectilePrefab: {fileID: 0}
+  damage: 40
+  shootInterval: 0.6
+  maxAmmo: 80
+  projectileSpeed: 25
+  panelColor: {r: 0.8396226, g: 0.6213363, b: 0, a: 0}

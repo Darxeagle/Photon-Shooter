@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/PhotonShooter/Scenes/Main Menu.unity
+    guid: 80c740d3c074fad4d921c4eb5f2ef199
+  - enabled: 1
+    path: Assets/PhotonShooter/Scenes/Gameplay Scene.unity
+    guid: 0fb52403b02a6ba47b758e0b08875cfa
+  m_configObjects: {}

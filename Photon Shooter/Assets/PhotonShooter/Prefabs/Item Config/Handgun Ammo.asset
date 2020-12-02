@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c7f89b5b464f14a8074cc00b60abe1, type: 3}
+  m_Name: Handgun Ammo
+  m_EditorClassIdentifier: Assembly-CSharp:PhotonShooter.Scripts.Gameplay:AmmoPackConfig
+  id: 0
+  viewPrefab: {fileID: 8428023155978298443, guid: 327a6588837b3b041a34cda3f4f751cb,
+    type: 3}
+  respawnTime: 10
+  weaponId: 0
